@@ -1,1 +1,21 @@
+name: Проверка PEP 8 (Flake8)
 
+on: [push, pull_request]
+
+jobs:
+  pep8-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Скачать код репозитория
+        uses: actions/checkout@v4
+
+      - name: Установить Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Установить инструмент проверки
+        run: pip install flake8
+
+      - name: Запустить проверку PEP 8
+        run: flake8 . --max-line-length=120 --statistics
